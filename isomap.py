@@ -1,4 +1,5 @@
 # Implementation for Isomap
+# edited
 import numpy as np
 from sklearn.manifold import Isomap
 from mnist_similarity import mnist_import_Xtrain_Ytrain_matDiss
