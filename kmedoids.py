@@ -1,5 +1,4 @@
 # algorithm k-medoids.py
-# algorithm k-medoids.py
 
 import pyclustering
 from pyclustering.cluster.kmedoids import kmedoids
