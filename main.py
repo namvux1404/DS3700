@@ -21,8 +21,10 @@
 #from sklearn import neighbors
 import numpy as np
 from mnist_similarity import mnist_import_data
+from adult_similarity import adult_import_data
 from knn import knn_processing
 from kmedoids import kmedoids_processing
+from kmedoids_adult import kmedoids_adult_processing
 # fonction pour calculer l'exactitude de l'algorithme
 
 
@@ -38,38 +40,45 @@ def accuracy_mnist(y_predict, y_trueValue):
 
 print('###------ Dataset MNIST ------####')
 print("---importing data.....")
-mnistX_train, mnistY_train, mnistX_test, mnistY_test, mnistD_train, mnistD_test = mnist_import_data()
-print('# Data train = ' + str(len(mnistX_train)))
-print('# Data test = ' + str(len(mnistX_test)))
-print(np.shape(mnistD_train))
-print(np.shape(mnistD_test))
-print("- imported ")
-print('\n')
+#mnistX_train, mnistY_train, mnistX_test, mnistY_test, mnistD_train, mnistD_test = mnist_import_data()
+adultX_train, adultY_train, adultX_test, adultY_test, adultD_train, adultD_test = adult_import_data()
 
-print('---------- 1) Algorithme KNN ----------')
-print('... Processing ....')
-kneighbors_mnist = 1
-print('Execute avec ' + str(kneighbors_mnist)+'-NN')
-knn_mnist = knn_processing(mnistD_train, mnistD_test,
-                           mnistY_train, kneighbors_mnist)
-print(' -> done processing')
-print('-- Etape evaluation : ')
-# print(knn_mnist)
-score = accuracy_mnist(knn_mnist, mnistY_test)
-print('Accuracy = ' + str(score))
-print('----')
+#print('# Data train = ' + str(len(mnistX_train)))
+#print('# Data test = ' + str(len(mnistX_test)))
+#print(np.shape(mnistD_train))
+#print(np.shape(mnistD_test))
+#print("- imported ")
+#print('\n')
 
-print('\n')
+#print('---------- 1) Algorithme KNN ----------')
+#print('... Processing ....')
+#kneighbors_mnist = 1
+#print('Execute avec ' + str(kneighbors_mnist)+'-NN')
+#knn_mnist = knn_processing(mnistD_train, mnistD_test,
+ #                          mnistY_train, kneighbors_mnist)
+#print(' -> done processing')
+#print('-- Etape evaluation : ')
+#print(knn_mnist)
+#score = accuracy_mnist(knn_mnist, mnistY_test)
+#print('Accuracy = ' + str(score))
+#print('----')
+
+#print('\n')
+
 print('---------- 2) Algorithme K-medoids ----------')
 print('... Processing ....')
-kmedoids_mnist = 10
-print('Execute avec ' + str(kmedoids_mnist)+'-medoids')
-kmedoids_mnist_predict = kmedoids_processing(
-    mnistD_train, mnistY_train, mnistD_train, mnistD_test, kmedoids_mnist)
+#kmedoids_mnist = 10
+kmedoids_adult = 2
+#print('Execute avec ' + str(kmedoids_mnist)+'-medoids')
+#kmedoids_mnist_predict = kmedoids_processing(
+ #   mnistX_train, mnistY_train, mnistD_train, mnistD_test, kmedoids_mnist)
+kmedoids_adult_predict = kmedoids_adult_processing(
+    adultX_train, adultY_train, adultD_train, adultD_test, kmedoids_adult)
 
-print(' -> done processing')
-print('-- Etape evaluation : ')
+#print(' -> done processing')
+#print('-- Etape evaluation : ')
+print(kmedoids_adult_predict)
 # print(knn_mnist)
-score = accuracy_mnist(kmedoids_mnist_predict, mnistY_test)
+score = accuracy_mnist(kmedoids_adult_predict, adultY_test)
 print('Accuracy = ' + str(score))
 print('----')
