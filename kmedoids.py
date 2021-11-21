@@ -23,6 +23,11 @@ import matplotlib.pyplot as plt
 # print(np.shape(D_train))
 #print("- imported ")
 
+# pour initialiser les medoids
+# @param
+# X : ensemble train
+# k : nombre de medoids
+
 
 def init_medoids(X, k):
     set_medoids = []
@@ -76,7 +81,7 @@ def y_prediction(D_test, medoids, class_medoids):
     # return round(succes/len(x_test), 5)
 
 
-def kmedoids_processing(x_train, y_train, D_train, D_test, k):
+def kmedoids_processing(x_train, y_train, D_train, D_test, k):  # fonction principale
     y_predict = []
     #print("Step execute K-medoids")
     initial_medoids = init_medoids(x_train, k)

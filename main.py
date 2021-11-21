@@ -5,27 +5,28 @@
 # Fichier main pour generer les algorithmes
 # et afficher les resultats pour evaluer la performance
 
-from pyclustering.cluster.kmedoids import kmedoids
-from numpy.random import choice
-from numpy.random import seed
+#from pyclustering.cluster.kmedoids import kmedoids
+#from numpy.random import choice
+#from numpy.random import seed
 
-from sklearn.cluster import AgglomerativeClustering
+#from sklearn.cluster import AgglomerativeClustering
+#
+
+#import scipy.cluster._hierarchy as shc
+#import matplotlib.pyplot as plt
+
+# from sklearn.neighbors import KNeighborsClassifier  # k-plus proches voisins
+
+#from sklearn.manifold import Isomap
+#from sklearn import neighbors
 import numpy as np
 from mnist_similarity import mnist_import_data
-#import scipy.cluster._hierarchy as shc
-import matplotlib.pyplot as plt
-
-from sklearn.neighbors import KNeighborsClassifier  # k-plus proches voisins
-
-from sklearn.manifold import Isomap
-from sklearn import neighbors
-
 from knn import knn_processing
 from kmedoids import kmedoids_processing
 # fonction pour calculer l'exactitude de l'algorithme
 
 
-def accuracy(y_predict, y_trueValue):
+def accuracy_mnist(y_predict, y_trueValue):
     a = np.array(y_predict)
     b = np.array(y_trueValue)
     # print(y_predict)
@@ -54,7 +55,7 @@ knn_mnist = knn_processing(mnistD_train, mnistD_test,
 print(' -> done processing')
 print('-- Etape evaluation : ')
 # print(knn_mnist)
-score = accuracy(knn_mnist, mnistY_test)
+score = accuracy_mnist(knn_mnist, mnistY_test)
 print('Accuracy = ' + str(score))
 print('----')
 
@@ -69,6 +70,6 @@ kmedoids_mnist_predict = kmedoids_processing(
 print(' -> done processing')
 print('-- Etape evaluation : ')
 # print(knn_mnist)
-score = accuracy(kmedoids_mnist_predict, mnistY_test)
+score = accuracy_mnist(kmedoids_mnist_predict, mnistY_test)
 print('Accuracy = ' + str(score))
 print('----')
