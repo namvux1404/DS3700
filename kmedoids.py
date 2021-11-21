@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 # D = []  # table of dissimilarity
 
 # print('###------ Algorithme K-medoids ------####')
-#print("---importing data.....")
-#x_train, y_train, x_test, y_test, D_train, D_test = mnist_import_Xtrain_Ytrain_matDiss()
+# print("---importing data.....")
+# x_train, y_train, x_test, y_test, D_train, D_test = mnist_import_Xtrain_Ytrain_matDiss()
 # print('# Data train = ' + str(len(x_train)))
 # print('# Data test = ' + str(len(x_test)))
 # print(np.shape(D_train))
