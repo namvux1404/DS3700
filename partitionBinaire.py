@@ -28,7 +28,7 @@ def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_mat
 
 
 agglomerative_clustering = AgglomerativeClustering(
-    n_clusters=10, affinity='precomputed', linkage='average')
+    n_clusters=13, affinity='precomputed', linkage='average')
 agglomerative_clustering.fit(D_train)
 
 
@@ -44,6 +44,27 @@ print(" - done")
 print(" - Prediction and accuracy : ")
 
 
+# pour determiner les class de partition,array_partition sous forme np.array
+def class_partition(array_partition):
+    class_partition = []
+    for i in range(13):
+        searchval = i
+        array_points = np.where(array_partition == searchval)[0]
+        list_class = []
+        for j in range(len(array_points)):
+            list_class.append(y_train[array_points[j]])
+
+        #print(' list class ' + str(list_class))
+        most_frequent_class = np.bincount(list_class).argmax()
+        class_partition.append(most_frequent_class)
+
+    return class_partition
+
+
+classification_partition = class_partition(agglo_mnist)
+print(classification_partition)
+
+
 def accuracy(y_predict, y_trueValue):
     a = np.array(y_predict)
     b = np.array(y_trueValue)
@@ -54,6 +75,6 @@ def accuracy(y_predict, y_trueValue):
     return round(succes/len(y_predict), 5)
 
 
-score = accuracy(agglo_mnist, y_train)
-print('Accuracy = ' + str(score))
-print('----')
+#score = accuracy(agglo_mnist, y_train)
+#print('Accuracy = ' + str(score))
+# print('----')
