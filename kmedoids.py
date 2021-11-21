@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 #from mnist_similarity import mnist_import_Xtrain_Ytrain_matDiss
 #import preprocessing_mnist
 #from preprocessing_mnist import import_data
-
 # X = []  # data to be imported
 # D = []  # table of dissimilarity
 
