@@ -19,10 +19,7 @@ from partitionBinaire import PB_processing
 def accuracy_mnist(y_predict, y_trueValue):
     a = np.array(y_predict)
     b = np.array(y_trueValue)
-    # print(y_predict)
-    # print(y_test)
     succes = np.sum(a == b)
-    # print(succes)
     return round(succes/len(y_predict), 5)
 
 
@@ -44,7 +41,7 @@ knn_mnist = knn_processing(mnistD_train, mnistD_test,
                            mnistY_train, kneighbors_mnist)
 print(' -> done processing')
 print('-- Etape evaluation : ')
-# print(knn_mnist)
+
 score_knn = accuracy_mnist(knn_mnist, mnistY_test)
 print('Accuracy = ' + str(score_knn))
 print('----')
@@ -59,7 +56,7 @@ kmedoids_mnist_predict = kmedoids_processing(
 
 print(' -> done processing')
 print('-- Etape evaluation : ')
-# print(knn_mnist)
+
 score_kmedoids = accuracy_mnist(kmedoids_mnist_predict, mnistY_test)
 print('Accuracy = ' + str(score_kmedoids))
 print('----')
@@ -69,16 +66,10 @@ print('---------- 3) Algorithme Isomap + application KNN ----------')
 print('... Processing isomap ....')
 n_comp_isomap = 8
 print('Reduit dimentionnel à ' + str(n_comp_isomap))
-#knn_isomap = 11
-#print('Execute avec ' + str(knn_isomap)+'-NN')
+
 isomap_mnist = isomap_processing(
     mnistD_train, mnistD_test, mnistY_train, mnistY_test, n_comp_isomap)
 
-#print(' -> done processing')
-#print('-- Etape evaluation : ')
-# print(knn_mnist)
-#score_isomap = accuracy_mnist(isomap_mnist, mnistY_test)
-#print('Accuracy = ' + str(score_isomap))
 print('----')
 print('\n')
 
@@ -87,16 +78,10 @@ print('... Processing isomap ....')
 
 n_comp_pcoa = 8
 print('Reduit dimentionnel à ' + str(n_comp_pcoa))
-#knn_pcoa = 8
-#print('Execute avec ' + str(knn_pcoa)+'-NN')
+
 pcoa_mnist = pcoa_processing(
     mnistD_train, mnistD_test, mnistY_train, mnistY_test, n_comp_pcoa)
 
-#print(' -> done processing')
-#print('-- Etape evaluation : ')
-# print(knn_mnist)
-#score_pcoa = accuracy_mnist(pcoa_mnist, mnistY_test)
-#print('Accuracy = ' + str(score_pcoa))
 print('----')
 print('\n')
 
