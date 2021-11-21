@@ -1,9 +1,11 @@
 # mnist_similarity_function.py
 
 # import preprocessing_mnist
+from re import X
 from preprocessing_mnist import import_data
 import numpy as np
-import matplotlib.pyplot as plt
+from scipy.spatial import distance
+#import matplotlib.pyplot as plt
 
 x_train, y_train, x_test, y_test = import_data()
 
@@ -42,7 +44,6 @@ def image_translation_left(X):
     # mat_pixel0 = np.zeros((28, 1))
     mat = np.reshape(X, (28, 28))
     mat = np.delete(mat, 0, axis=1)  # delete 1 pixel a la fin
-    # mat = np.delete(mat, 0, axis=0)  # delete 1 pixel en haut
     # mat = np.delete(mat, 0, axis=1)  # delete 1 pixel a la fin
     # mat = np.delete(mat, 0, axis=1)  # delete 1 pixel a la fin
     # mat = np.append(mat, mat_pixel0, axis=1)        # ajoute 1 pixel au debut
@@ -57,7 +58,6 @@ def image_translation_right(X):
     # mat_pixel0 = np.zeros((28, 1))
     mat = np.reshape(X, (28, 28))
     mat = np.delete(mat, 27, axis=1)  # delete 1 pixel a la fin
-    # mat = np.delete(mat, 27, axis=0)  # delete 1 pixel en bas
     # mat = np.delete(mat, 26, axis=1)  # delete 1 pixel a la fin
     # mat = np.delete(mat, 25, axis=1)  # delete 1 pixel a la fin
     # mat = np.append(mat, mat_pixel0, axis=1)        # ajoute 1 pixel au debut
@@ -212,11 +212,21 @@ def mat_dissimilarity_test(x_test, x_train):
     return D_test
 
 
+def mat_euclidean(X, Y=None):  # pour tester la distance euclidienne des images
+    Y = X if Y is None else Y
+    D = np.zeros((len(X), len(Y)))
+    for i in range(len(X)):
+        for j in range(len(Y)):
+            D[i, j] = distance.euclidean(X[i], Y[j])
+
+
 def mnist_import_data():
     D_train = mat_dissimilarity(x_train)
     D_test = mat_dissimilarity_test(x_test, x_train)
+    DE_train = mat_euclidean(x_train)
+    DE_test = mat_euclidean(x_test, x_train)
 
-    return x_train, y_train, x_test, y_test, D_train, D_test
+    return x_train, y_train, x_test, y_test, D_train, D_test, DE_train, DE_test
 
 
 #D_test = mat_dissimilarity_test(x_test, x_train)

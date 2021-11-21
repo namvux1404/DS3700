@@ -25,7 +25,7 @@ def accuracy_mnist(y_predict, y_trueValue):
 
 print('###------ Dataset MNIST ------####')
 print("---importing data.....")
-mnistX_train, mnistY_train, mnistX_test, mnistY_test, mnistD_train, mnistD_test = mnist_import_data()
+mnistX_train, mnistY_train, mnistX_test, mnistY_test, mnistD_train, mnistD_test, mnistDE_train, mnistDE_test = mnist_import_data()
 print('# Data train = ' + str(len(mnistX_train)))
 print('# Data test = ' + str(len(mnistX_test)))
 print(np.shape(mnistD_train))
@@ -33,24 +33,28 @@ print(np.shape(mnistD_test))
 print("- imported ")
 print('\n')
 
-print('---------- 1) Algorithme KNN ----------')
+print('---------- 1) ALGORITHME KNN ----------')
 print('... Processing ....')
-kneighbors_mnist = 1
-print('Execute avec ' + str(kneighbors_mnist)+'-NN')
+#kneighbors_mnist = 1
+#print('Execute avec ' + str(kneighbors_mnist)+'-NN')
 knn_mnist = knn_processing(mnistD_train, mnistD_test,
-                           mnistY_train, kneighbors_mnist)
-print(' -> done processing')
-print('-- Etape evaluation : ')
+                           mnistY_train, mnistY_test)
+#print(' -> done processing')
+#print('-- Etape evaluation : ')
 
-score_knn = accuracy_mnist(knn_mnist, mnistY_test)
-print('Accuracy = ' + str(score_knn))
+#score_knn = accuracy_mnist(knn_mnist, mnistY_test)
+#print('Accuracy = ' + str(score_knn))
 print('----')
+print('-- Avec la distance euclidienne --')
+knn_mnist_eulidien = knn_processing(mnistDE_train, mnistDE_test,
+                                    mnistY_train, mnistY_test)
 print('\n')
 
-print('---------- 2) Algorithme K-medoids ----------')
+print('---------- 2) ALGORITHME K-medoids ----------')
 print('... Processing ....')
 kmedoids_mnist = 10
 print('Execute avec ' + str(kmedoids_mnist)+'-medoids')
+
 kmedoids_mnist_predict = kmedoids_processing(
     mnistX_train, mnistY_train, mnistD_train, mnistD_test, kmedoids_mnist)
 
@@ -60,9 +64,19 @@ print('-- Etape evaluation : ')
 score_kmedoids = accuracy_mnist(kmedoids_mnist_predict, mnistY_test)
 print('Accuracy = ' + str(score_kmedoids))
 print('----')
+
+print('-- Avec la distance euclidienne --')
+kmedoids_mnist_predict_euclidien = kmedoids_processing(
+    mnistX_train, mnistY_train, mnistDE_train, mnistDE_test, kmedoids_mnist)
+print(' -> done processing')
+print('-- Etape evaluation : ')
+
+score_kmedoids_euclidien = accuracy_mnist(kmedoids_mnist_predict, mnistY_test)
+print('Accuracy = ' + str(score_kmedoids_euclidien))
+print('----')
 print('\n')
 
-print('---------- 3) Algorithme Isomap + application KNN ----------')
+print('---------- 3) ALGORITHME Isomap + application KNN ----------')
 print('... Processing isomap ....')
 n_comp_isomap = 8
 print('Reduit dimentionnel à ' + str(n_comp_isomap))
@@ -73,7 +87,7 @@ isomap_mnist = isomap_processing(
 print('----')
 print('\n')
 
-print('---------- 4) Algorithme PCoA + application KNN ----------')
+print('---------- 4) ALGORITHME PCoA + application KNN ----------')
 print('... Processing isomap ....')
 
 n_comp_pcoa = 8
@@ -85,7 +99,7 @@ pcoa_mnist = pcoa_processing(
 print('----')
 print('\n')
 
-print('---------- 5) Algorithme Partition Binaire ----------')
+print('---------- 5) ALGORITHME Partition Binaire ----------')
 print('... Processing ....')
 cluster_mnist = 30
 print('Execute avec ' + str(cluster_mnist)+' partitions')

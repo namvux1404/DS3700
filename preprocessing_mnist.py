@@ -1,7 +1,7 @@
 # preprcessing_mnist.py
 import csv
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 data = open('mnist_train.csv')
 csv_file = csv.reader(data)

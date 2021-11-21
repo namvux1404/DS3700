@@ -28,9 +28,9 @@ def accuracy(y_predict, y_trueValue):
     return round(succes/len(y_predict), 5)
 
 
-def class_partition(y_train, array_partition):
+def class_partition(y_train, array_partition, n_clusters):
     class_partition = []
-    for i in range(30):
+    for i in range(n_clusters):
         searchval = i  # partition i
 
         # les points de meme partition
@@ -92,9 +92,9 @@ def PB_processing(D_train, D_test, y_train, clusters):
     #print(" - done")
     # pour determiner les class de partition,array_partition sous forme np.array
 
-    classification_partition = class_partition(y_train, agglo_mnist)
+    classification_partition = class_partition(y_train, agglo_mnist, clusters)
     print('Class partition : ' + str(classification_partition))
-    print(classification_partition)
+    # print(classification_partition)
 
     #print(" - Prediction and accuracy : ")
 
