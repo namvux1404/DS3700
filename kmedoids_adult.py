@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 # D = []  # table of dissimilarity
 
 # print('###------ Algorithme K-medoids ------####')
-# print("---importing data.....")
-# x_train, y_train, x_test, y_test, D_train, D_test = mnist_import_Xtrain_Ytrain_matDiss()
+#print("---importing data.....")
+#x_train, y_train, x_test, y_test, D_train, D_test = mnist_import_Xtrain_Ytrain_matDiss()
 # print('# Data train = ' + str(len(x_train)))
 # print('# Data test = ' + str(len(x_test)))
 # print(np.shape(D_train))
@@ -45,7 +45,7 @@ def associate_clustering(y_train, clusters):
     for group in clusters:
         list_class = []  # initialize array
         for j in range(len(group)):
-            list_class.append(y_train[group[j]])
+            list_class.append(y_train.values[j])
 
         #print(' list class ' + str(list_class))
         most_frequent_class = np.bincount(list_class).argmax()
@@ -80,7 +80,7 @@ def y_prediction(D_test, medoids, class_medoids):
     # return round(succes/len(x_test), 5)
 
 
-def kmedoids_processing(x_train, y_train, D_train, D_test, k):  # fonction principale
+def kmedoids_adult_processing(x_train, y_train, D_train, D_test, k):  # fonction principale
     y_predict = []
     #print("Step execute K-medoids")
     initial_medoids = init_medoids(x_train, k)

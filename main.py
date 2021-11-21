@@ -6,7 +6,9 @@
 # et afficher les resultats pour evaluer la performance
 
 import numpy as np
+import pandas as pd
 from mnist_similarity import mnist_import_data
+from adult_similarity import adult_import_data
 
 from knn import knn_processing
 from kmedoids import kmedoids_processing
@@ -106,8 +108,8 @@ print('Execute avec ' + str(cluster_mnist)+' partitions')
 pb_mnist_predict = PB_processing(
     mnistD_train, mnistD_test, mnistY_train, cluster_mnist)
 
-print(' -> done processing')
-print('-- Etape evaluation : ')
+#print(' -> done processing')
+#print('-- Etape evaluation : ')
 # print(knn_mnist)
 score_partitionBinaire = accuracy_mnist(pb_mnist_predict, mnistY_test)
 print('Accuracy = ' + str(score_partitionBinaire))
