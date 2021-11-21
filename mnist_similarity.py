@@ -212,7 +212,7 @@ def mat_dissimilarity_test(x_test, x_train):
     return D_test
 
 
-def mnist_import_Xtrain_Ytrain_matDiss():
+def mnist_import_data():
     D_train = mat_dissimilarity(x_train)
     D_test = mat_dissimilarity_test(x_test, x_train)
 
