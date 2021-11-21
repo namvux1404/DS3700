@@ -195,7 +195,7 @@ def mat_dissimilarity(X):  # matrice des dissimilarite entre les images
     return D
 
 
-# matrice des dissimilarite entre les images
+# matrice des dissimilarite entre les images train et test
 def mat_dissimilarity_test(x_test, x_train):
 
     D_test = np.zeros((len(x_test), len(x_train)))

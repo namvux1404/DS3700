@@ -28,29 +28,35 @@ def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_mat
 
 
 agglomerative_clustering = AgglomerativeClustering(
-    n_clusters=13, affinity='precomputed', linkage='average')
+    n_clusters=30, affinity='precomputed', linkage='average')
 agglomerative_clustering.fit(D_train)
 
-
+# pour train
 agglo_mnist = agglomerative_clustering_predict(
     agglomerative_clustering, D_train)
-print(agglo_mnist)  # --> besoin d'association a classe
+# print(agglo_mnist)  # --> besoin d'association a classe
+print('size array agglo_mnist = ' + str(len(agglo_mnist)))
 
+# pour test
+agglo_mnist_test = agglomerative_clustering_predict(
+    agglomerative_clustering, D_test)
+print('size array agglo_mnist_test = ' + str(len(agglo_mnist_test)))
+# print(agglo_mnist_test)
 # appel une autre fois pour dissim de test et determine class
 # avec l'association de train --> compare avec y_test
 
 print(" - done")
-
-print(" - Prediction and accuracy : ")
-
-
 # pour determiner les class de partition,array_partition sous forme np.array
+
+
 def class_partition(array_partition):
     class_partition = []
-    for i in range(13):
-        searchval = i
+    for i in range(30):
+        searchval = i  # partition i
+
+        # les points de meme partition
         array_points = np.where(array_partition == searchval)[0]
-        list_class = []
+        list_class = []  # array les class de ce meme partition
         for j in range(len(array_points)):
             list_class.append(y_train[array_points[j]])
 
@@ -64,6 +70,21 @@ def class_partition(array_partition):
 classification_partition = class_partition(agglo_mnist)
 print(classification_partition)
 
+print(" - Prediction and accuracy : ")
+
+
+def y_prediction(array_partition, classification):
+    y_predict = []  # array contient classification selon partition
+    for i in range(len(array_partition)):
+        partition = array_partition[i]  # partition predict de element i
+        # print(partition)
+        class_parition_predict = classification[partition]
+        # print(class_parition_predict)
+
+        # ajout dans array y_predict pour valider
+        y_predict.append(class_parition_predict)
+    return y_predict
+
 
 def accuracy(y_predict, y_trueValue):
     a = np.array(y_predict)
@@ -75,6 +96,9 @@ def accuracy(y_predict, y_trueValue):
     return round(succes/len(y_predict), 5)
 
 
-#score = accuracy(agglo_mnist, y_train)
-#print('Accuracy = ' + str(score))
-# print('----')
+y_predict = y_prediction(agglo_mnist_test, classification_partition)
+print(y_predict)
+
+score = accuracy(y_predict, y_test)
+print('Accuracy = ' + str(score))
+print('----')
