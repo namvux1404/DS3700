@@ -21,6 +21,7 @@ for index in y.keys():
     else:
         update.append(1)
 y.update(pd.Series(update))
+y = y.astype('int')
 
 # Diviser les donnees en donnees pour l'entrainement, test et validation
 X_train, X_test, y_train, y_test = train_test_split(
