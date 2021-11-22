@@ -7,7 +7,7 @@ from sklearn.cluster import AgglomerativeClustering
 import numpy as np
 
 
-# Fonction pour determiner les classe des partition
+# Fonction pour determiner les classe des clusters
 def class_partition(y_train, array_partition, n_clusters):
     class_partition = []
     for i in range(n_clusters):
@@ -17,9 +17,8 @@ def class_partition(y_train, array_partition, n_clusters):
         array_points = np.where(array_partition == searchval)[0]
         list_class = []  # array les class de ce meme partition
         for j in range(len(array_points)):
-            list_class.append(y_train[array_points[j]])
+            list_class.append(y_train.values[j])  # recupere le vrai classe
 
-        #print(' list class ' + str(list_class))
         most_frequent_class = np.bincount(list_class).argmax()
         class_partition.append(most_frequent_class)
 
@@ -31,16 +30,14 @@ def y_prediction(array_partition, classification):
     y_predict = []  # array contient classification selon partition
     for i in range(len(array_partition)):
         partition = array_partition[i]  # partition predict de element i
-        # print(partition)
+
         class_parition_predict = classification[partition]
-        # print(class_parition_predict)
 
         # ajout dans array y_predict pour valider
         y_predict.append(class_parition_predict)
     return y_predict
 
 
-# Fonction principale
 def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_matrix):
     average_dissimilarity = list()
     for i in range(agglomerative_clustering.n_clusters):
@@ -50,7 +47,7 @@ def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_mat
     return np.argmin(np.stack(average_dissimilarity), axis=0)
 
 
-def PB_processing(D_train, D_test, y_train, clusters):
+def PB_processing(D_train, D_test, y_train, clusters):  # Fonction principale
     agglomerative_clustering = AgglomerativeClustering(
         n_clusters=clusters, affinity='precomputed', linkage='average')
     agglomerative_clustering.fit(D_train)

@@ -1,62 +1,34 @@
+# Xuanchen Liu - Matricule : 20173286
+# Van Nam Vu - Matricule : 20170148
+# -------------------------------------------
 # Implement KNN
+
 import numpy as np
-# from mnist_similarity import mnist_dissimilarity
-# from mnist_similarity import mnist_import_Xtrain_Ytrain_matDiss
 from sklearn.neighbors import KNeighborsClassifier  # k-plus proches voisins
 
 
-def accuracy(y_predict, y_trueValue):
+def accuracy(y_predict, y_trueValue):  # Fonction pour calculer l'exactude
     a = np.array(y_predict)
     b = np.array(y_trueValue)
-    # print(y_predict)
-    # print(y_test)
+
     succes = np.sum(a == b)
-    # print(succes)
+
     return round(succes/len(y_predict), 5)
 
 
-# print('\n')
-# print('###------ Algorithme KNN ------####')
-# print("---importing data.....")
-# x_train, y_train, x_test, y_test, D_train, D_test = mnist_import_Xtrain_Ytrain_matDiss()
-# print('# Data train = ' + str(len(x_train)))
-# print('# Data test = ' + str(len(x_test)))
-# print(np.shape(D_train))
-# print(np.shape(D_test))
-# print("- imported ")
-
-# produire autre array D avec x_test et x_train pour predict
-
-# print('... Processing ....')
 def knn_processing(D_train, D_test, y_train, y_test):
     score_train = []
     for k in range(1, 20):
         knn = KNeighborsClassifier(
             n_neighbors=k, metric='precomputed', algorithm='brute')
         knn.fit(D_train, y_train)
-        # print(" - done processing")
-        # print(" - Prediction and accuracy pour " + str(k))
 
-        knn_mnist = knn.predict(D_test)
-        # print(knn_mnist)
-        # print(len(knn_mnist))
-        score = accuracy(knn_mnist, y_test)
+        knn_predict = knn.predict(D_test)
+
+        score = accuracy(knn_predict, y_test)
         score_train.append(score)
         print('Accuracy = ' + str(score) + ' pour k = ' + str(k))
         print('----')
     print(' -> done processing')
     print('Accuracy max = ' + str(np.max(score_train)))
     print('avec k = ' + str(np.argmax(score_train) + 1))
-
-
-# print(" - done")
-
-
-def knn_processing1(D_train, D_test, y_train, k):
-
-    knn = KNeighborsClassifier(
-        n_neighbors=k, metric='precomputed', algorithm='brute')
-    knn.fit(D_train, y_train)
-
-    knn_predict = knn.predict(D_test)
-    return knn_predict
